@@ -1,0 +1,19 @@
+{{> menu}}
+
+<form class="box"  action="/bird/{{place._id}}/updatebird/{{bird._id}}" method="POST">
+  <label>Update Bird Details:</label>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <input class="input" type="text" name="title", value="{{bird.title}}">
+      </div>
+      <div class="field">
+        <input class="input" type="int" name="date" value="{{bird.date}}">
+      </div>
+      <div class="field">
+        <input class="input" type="text"  name="other" value="{{bird.other}}">
+      </div>
+    </div>
+  </div>
+  <button class="button is-primary">Update Bird</button>
+</form>

@@ -1,0 +1,30 @@
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Bird Name</th>
+      <th>Date Seen</th>
+      <th>Other Info</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each place.birds}}
+      <tr>
+        <td>
+          {{title}}
+        </td>
+        <td>
+          {{date}}
+        </td>
+        <td>
+          {{other}}
+        </td>
+        <td>
+          <a href="/place/{{../place._id}}/deletebird/{{_id}}" class="ui icon button">
+            <i class="fas fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
