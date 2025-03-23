@@ -1,23 +1,62 @@
 import Joi from "joi";
 
-export const UserCredentialsSpec = {
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
-};
+export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
 
-export const UserSpec = {
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
-};
+export const UserCredentialsSpec = Joi.object()
+  .keys({
+    email: Joi.string().email().example("homer@simpson.com").required(),
+    password: Joi.string().example("secret").required(),
+  })
+  .label("UserCredentials");
 
-export const BirdSpec = {
-  title: Joi.string().required(),
-  artist: Joi.string().required(),
-  duration: Joi.number().allow("").optional(),
-};
+export const UserSpec = UserCredentialsSpec.keys({
+  firstName: Joi.string().example("Homer").required(),
+  lastName: Joi.string().example("Simpson").required(),
+}).label("UserDetails");
 
-export const PlaceSpec = {
-  title: Joi.string().required(),
-};
+export const UserSpecPlus = UserSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("UserDetailsPlus");
+
+export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
+
+export const BirdSpec = Joi.object()
+  .keys({
+    title: Joi.string().required().example("Blackbird"),
+    date: Joi.string().required().example("dd-mm-yyyy"),
+    other: Joi.string().required().example("1 in flight"),
+    placeid: IdSpec,
+  })
+  .label("Bird");
+
+export const BirdSpecPlus = BirdSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("BirdPlus");
+
+export const BirdArraySpec = Joi.array().items(BirdSpecPlus).label("BirdArray");
+
+export const PlaceSpec = Joi.object()
+  .keys({
+    title: Joi.string().required().example("Bray Harbour"),
+    userid: IdSpec,
+    birds: BirdArraySpec,
+  })
+  .label("Place");
+
+export const PlaceSpecPlus = PlaceSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("PlacePlus");
+
+export const PlaceArraySpec = Joi.array().items(PlaceSpecPlus).label("PlaceArray");
+
+export const JwtAuth = Joi.object()
+  .keys({
+    success: Joi.boolean().example("true").required(),
+    token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+  })
+  .label("JwtAuth");
+
+

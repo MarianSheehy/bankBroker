@@ -1,5 +1,6 @@
 import { BirdSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import { imageStore } from "../models/image-store.js";
 
 export const placeController = {
   index: {
@@ -25,8 +26,8 @@ export const placeController = {
       const place = await db.placeStore.getPlaceById(request.params.id);
       const newBird = {
         title: request.payload.title,
-        artist: request.payload.artist,
-        duration: Number(request.payload.duration),
+        date: request.payload.title,
+        other: request.payload.other,
       };
       await db.birdStore.addBird(place._id, newBird);
       return h.redirect(`/place/${place._id}`);
@@ -38,6 +39,30 @@ export const placeController = {
       const place = await db.placeStore.getPlaceById(request.params.id);
       await db.birdStore.deleteBird(request.params.birdid);
       return h.redirect(`/place/${place._id}`);
+    },
+  },
+
+  uploadImage: {
+    handler: async function (request, h) {
+      try {
+        const place = await db.placeStore.getPlaceById(request.params.id);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          place.img = url;
+          await db.placeStore.updatePlace(place);
+        }
+        return h.redirect(`/place/${place._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/place/${place._id}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
     },
   },
 };

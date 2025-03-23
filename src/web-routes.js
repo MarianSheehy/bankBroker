@@ -21,7 +21,11 @@ export const webRoutes = [
   { method: "GET", path: "/place/{id}", config: placeController.index },
   { method: "POST", path: "/place/{id}/addbird", config: placeController.addBird },
   { method: "GET", path: "/place/{id}/deletebird/{birdid}", config: placeController.deleteBird },
+  { method: "POST", path: "/place/{id}/uploadimage", config: placeController.uploadImage },
+
 
   { method: "GET", path: "/bird/{id}/editbird/{birdid}", config: birdController.index },
   { method: "POST", path: "/bird/{id}/updatebird/{birdid}", config: birdController.update },
+
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 ];

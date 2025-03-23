@@ -25,6 +25,13 @@ export const placeMongoStore = {
     return this.getPlaceById(placeObj._id);
   },
 
+  async updatePlace(updatedPlace) {
+    const place = await Place.findOne({ _id: updatedPlace._id });
+    place.title = updatedPlace.title;
+    place.img = updatedPlace.img;
+    await place.save();
+  },
+
   async getUserPlaces(id) {
     const place = await Place.find({ userid: id }).lean();
     return place;

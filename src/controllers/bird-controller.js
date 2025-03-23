@@ -7,7 +7,7 @@ export const birdController = {
       const place = await db.placeStore.getPlaceById(request.params.id);
       const bird = await db.birdStore.getBirdById(request.params.birdid);
       const viewData = {
-        title: "Edit Song",
+        title: "Edit Bird",
         place: place,
         bird: bird,
       };
@@ -27,8 +27,8 @@ export const birdController = {
       const bird = await db.birdStore.getBirdById(request.params.birdid);
       const newBird = {
         title: request.payload.title,
-        artist: request.payload.artist,
-        duration: Number(request.payload.duration),
+        date: request.payload.date,
+        other: request.payload.other,
       };
       await db.birdStore.updateBird(bird, newBird);
       return h.redirect(`/place/${request.params.id}`);

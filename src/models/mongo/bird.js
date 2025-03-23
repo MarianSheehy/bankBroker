@@ -4,8 +4,8 @@ const { Schema } = Mongoose;
 
 const birdSchema = new Schema({
   title: String,
-  artist: String,
-  duration: Number,
+  date: String,
+  other: String,
   placeid: {
     type: Schema.Types.ObjectId,
     ref: "Place",

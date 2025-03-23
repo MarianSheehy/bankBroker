@@ -45,7 +45,7 @@ export const birdMemStore = {
 
   async updateBird(bird, updatedBird) {
     bird.title = updatedBird.title;
-    bird.artist = updatedBird.artist;
-    bird.duration = updatedBird.duration;
+    bird.date = updatedBird.date;
+    bird.other = updatedBird.other;
   },
 };

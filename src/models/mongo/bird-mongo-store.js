@@ -42,8 +42,8 @@ export const birdMongoStore = {
   async updateBird(bird, updatedBird) {
     const birdDoc = await Bird.findOne({ _id: bird._id });
     birdDoc.title = updatedBird.title;
-    birdDoc.artist = updatedBird.artist;
-    birdDoc.duration = updatedBird.duration;
+    birdDoc.date = updatedBird.date;
+    birdDoc.other = updatedBird.other;
     await birdDoc.save();
   },
 };

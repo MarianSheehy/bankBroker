@@ -5,13 +5,13 @@ export const accountsController = {
   index: {
     auth: false,
     handler: function (request, h) {
-      return h.view("main", { title: "Welcome to Place" });
+      return h.view("main", { title: "Welcome to BirdWatch" });
     },
   },
   showSignup: {
     auth: false,
     handler: function (request, h) {
-      return h.view("signup-view", { title: "Sign up for Place" });
+      return h.view("signup-view", { title: "Sign up for BirdWatch" });
     },
   },
   signup: {
