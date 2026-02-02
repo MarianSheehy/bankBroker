@@ -28,11 +28,10 @@ const SiteHeader: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const menuOptions = [
-    { label: "Movies", path: "/" },
-    { label: "Shows", path: "/movies/shows" },
-    { label: "Upcoming", path: "/movies/upcoming" },
-    { label: "Favorites", path: "/movies/favourites" },
-    { label: "Popular Cast", path: "/movies/popular" },
+    { label: "My Banks", path: "/" },
+    { label: "Reports", path: "/movies/shows" },
+    { label: "Calendar", path: "/movies/upcoming" },
+    { label: "My Account", path: "/movies/favourites" },
   ];
 
   const handleMenuSelect = (pageURL: string) => {
@@ -48,10 +47,10 @@ const SiteHeader: React.FC = () => {
       <AppBar position="fixed" elevation={0} color="primary">
         <Toolbar>
           <Typography variant="h4" sx={styles.title}>
-            TMDB Client
+            Bank Broker
           </Typography>
           <Typography variant="h6" sx={styles.title}>
-            All you ever wanted to know about Movies & TV!
+            Your Time Saving Intermediate
           </Typography>
           {isMobile ? (
             <>
