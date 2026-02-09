@@ -29,9 +29,9 @@ const SiteHeader: React.FC = () => {
 
   const menuOptions = [
     { label: "My Banks", path: "/" },
-    { label: "Reports", path: "/movies/shows" },
-    { label: "Calendar", path: "/movies/upcoming" },
-    { label: "My Account", path: "/movies/favourites" },
+    { label: "Reports", path: "/banks/shows" },
+    { label: "Calendar", path: "/banks/upcoming" },
+    { label: "My Account", path: "/banks/favourites" },
   ];
 
   const handleMenuSelect = (pageURL: string) => {
@@ -47,10 +47,10 @@ const SiteHeader: React.FC = () => {
       <AppBar position="fixed" elevation={0} color="primary">
         <Toolbar>
           <Typography variant="h4" sx={styles.title}>
-            Bank Broker
+            bank broker
           </Typography>
           <Typography variant="h6" sx={styles.title}>
-            Your Time Saving Intermediate
+            your time saving intermediary
           </Typography>
           {isMobile ? (
             <>

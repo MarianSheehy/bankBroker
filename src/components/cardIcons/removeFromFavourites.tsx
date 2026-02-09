@@ -1,15 +1,15 @@
 import React, { MouseEvent, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { MoviesContext } from "../../contexts/moviesContext";
-import {BaseMovieProps} from "../../types/interfaces";
+import { banksContext } from "../../contexts/banksContext";
+import {BasebankProps} from "../../types/interfaces";
 
-const RemoveFromFavouritesIcon: React.FC<BaseMovieProps> = (movie) => {
-  const context = useContext(MoviesContext);
+const RemoveFromFavouritesIcon: React.FC<BasebankProps> = (bank) => {
+  const context = useContext(banksContext);
 
   const onUserRequest = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    context.removeFromFavourites(movie);
+    context.removeFromFavourites(bank);
   };
 
 return (
