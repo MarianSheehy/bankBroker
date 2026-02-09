@@ -1,4 +1,4 @@
-export interface BaseMovieProps {
+export interface BaseBankProps {
   title: string;
   budget: number;
   homepage: string | undefined;
@@ -18,7 +18,7 @@ export interface BaseMovieProps {
   genre_ids?: number[];
 }
 
-export interface MovieDetailsProps extends BaseMovieProps {
+export interface BankDetailsProps extends BaseBankProps {
   genres: {
     id: number;
     name: string;
@@ -29,7 +29,7 @@ export interface MovieDetailsProps extends BaseMovieProps {
   }[];
 }
 
-export interface MovieImage {
+export interface BankImage {
   file_path: string;
   aspect_ratio?: number; //some props are optional...
   height?: number;
@@ -39,14 +39,14 @@ export interface MovieImage {
   width?: number;
 }
 
-export interface MoviePageProps {
-  movie: MovieDetailsProps;
-  images: MovieImage[];
+export interface BankPageProps {
+  bank: BankDetailsProps;
+  images: BankImage[];
 }
 
-export interface BaseMovieListProps {
-  movies: BaseMovieProps[];
-  action: (m: BaseMovieProps) => React.ReactNode;
+export interface BasebankListProps {
+  banks: BaseBankProps[];
+  action: (m: BaseBankProps) => React.ReactNode;
 }
 
 export type FilterOption = "title" | "genre";
@@ -64,11 +64,11 @@ export interface GenreData {
   }[];
 }
 
-export interface DiscoverMovies {
+export interface DiscoverBanks {
   page: number;
   total_pages: number;
   total_results: number;
-  results: BaseMovieProps[];
+  results: BaseBankProps[];
 }
 
 export interface Review {
@@ -76,14 +76,14 @@ export interface Review {
   content: string,
   agree: boolean,
   rating: number,
-  movieId: number,
+  bankId: number,
 }
 
 export interface DiscoverShows {
   page: number;
   total_pages: number;
   total_results: number;
-  results: BaseMovieProps[];
+  results: BaseBankProps[];
 }
 
 

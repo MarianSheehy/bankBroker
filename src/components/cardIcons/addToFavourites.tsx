@@ -1,15 +1,15 @@
 import React, {MouseEvent, useContext} from "react";
-import { MoviesContext } from "../../contexts/moviesContext";
+import { banksContext } from "../../contexts/banksContext";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import {BaseMovieProps} from "../../types/interfaces"
+import {BasebankProps} from "../../types/interfaces"
 
-const AddToFavouritesIcon: React.FC<BaseMovieProps> = (movie) => {
-  const context = useContext(MoviesContext);
+const AddToFavouritesIcon: React.FC<BasebankProps> = (bank) => {
+  const context = useContext(banksContext);
 
   const onUserSelect = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    context.addToFavourites(movie);
+    context.addToFavourites(bank);
   };
   return (
     <IconButton aria-label="add to favorites" onClick={onUserSelect}>
