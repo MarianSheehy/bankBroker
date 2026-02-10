@@ -27,7 +27,7 @@ const App = () => {
         <SiteHeader />
           <Routes>
             <Route path="/reviews/:id" element={<BankReviewPage/>} />
-            <Route path="/banks/favourites" element={<FavouriteBanksPage />} />
+            <Route path="/banks/myaccount" element={<FavouriteBanksPage />} />
             <Route path="/banks/:id" element={<BankDetailsPage />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
