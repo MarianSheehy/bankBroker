@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import bankCard from "../components/bankCard";
 import Samplebank from "./sampleData";
 import { MemoryRouter } from "react-router";
-import banksContextProvider from "../contexts/banksContext";
+import BanksContextProvider from "../contexts/banksContext";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 
 const meta = {
@@ -10,7 +10,7 @@ const meta = {
   component: bankCard,
   decorators: [
     (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,
-    (Story) => <banksContextProvider>{Story()}</banksContextProvider>,
+    (Story) => <BanksContextProvider>{Story()}</BanksContextProvider>,
   ],
 } satisfies Meta<typeof bankCard>;
 
