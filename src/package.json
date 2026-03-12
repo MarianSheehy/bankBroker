@@ -1,0 +1,63 @@
+{
+  "name": "bankbroker",
+  "version": "0.4.0",
+  "description": "An application for bank brokers",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "lint": "eslint . --ext .js",
+    "test": "mocha --ui tdd test/**.js -exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarianSheehy/bankBroker"
+  },
+  "keywords": [
+    "node",
+    "hapi"
+  ],
+  "author": "MarianSheehy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarianSheehy/bankBroker/issues"
+  },
+  "homepage": "https://github.com/MarianSheehy/bankbroker#readme",
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@hapi/cookie": "^12.0.1",
+    "@hapi/hapi": "^21.4.0",
+    "@hapi/inert": "^7.1.0",
+    "@hapi/vision": "^7.0.3",
+    "cloudinary": "^2.6.0",
+    "curl": "^0.1.4",
+    "dotenv": "^16.4.7",
+    "exit-hook": "^4.0.0",
+    "g": "^2.0.1",
+    "handlebars": "^4.7.8",
+    "hapi": "^18.1.0",
+    "hapi-auth-jwt2": "^11.0.0",
+    "hapi-swagger": "^17.3.2",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "lowdb": "^7.0.1",
+    "mais-mongoose-seeder": "^1.0.7",
+    "mongoose": "^8.12.1",
+    "sudo": "^1.0.3",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "axios": "^1.8.4",
+    "chai": "^5.2.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "mocha": "^11.1.0",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.5.3"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

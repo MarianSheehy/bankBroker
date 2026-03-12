@@ -1,0 +1,43 @@
+{
+    "users": [
+      {
+        "firstName": "Marian",
+        "lastName": "Sheehy",
+        "email": "marianjc80@gmail.com",
+        "password": "marian",
+        "_id": "64bdbdcf-7361-47b0-94ca-a11ef80dd534"
+      },
+      {
+        "firstName": "Pat",
+        "lastName": "Sheehy",
+        "email": "marianjc80@gmail.com",
+        "password": "patrick",
+        "_id": "a1a135af-7534-41c4-9dc4-62b1b8bc63be"
+      },
+      {
+        "firstName": "Pat",
+        "lastName": "Sheehy",
+        "email": "pat.sheehy@gmail.com",
+        "password": "patrick",
+        "_id": "858df90f-5167-4064-a560-0bdf4c05e3a5"
+      }
+    ],
+    "places": [
+      {
+        "userid": "64bdbdcf-7361-47b0-94ca-a11ef80dd534",
+        "title": "marian",
+        "_id": "ab6311ac-c229-41b3-b8d3-4c24f2f27b2b"
+      },
+      {
+        "userid": "858df90f-5167-4064-a560-0bdf4c05e3a5",
+        "title": "pat",
+        "_id": "1e69b022-d96e-4901-a558-741c141cda5b"
+      },
+      {
+        "userid": "858df90f-5167-4064-a560-0bdf4c05e3a5",
+        "title": "pat",
+        "_id": "f3526c24-0510-4f9b-b2ad-4660843bab08"
+      }
+    ],
+    "banks": []
+  }
