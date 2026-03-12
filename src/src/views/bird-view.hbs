@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {{> menu}}
 
 <form class="box"  action="/bank/{{place._id}}/updatebank/{{bank._id}}" method="POST">
@@ -17,3 +18,24 @@
   </div>
   <button class="button is-primary">Update Bank</button>
 </form>
+=======
+{{> menu}}
+
+<form class="box"  action="/bank/{{place._id}}/updatebank/{{bank._id}}" method="POST">
+  <label>Update Bank Details:</label>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <input class="input" type="text" name="title", value="{{bank.title}}">
+      </div>
+      <div class="field">
+        <input class="input" type="int" name="date" value="{{bank.date}}">
+      </div>
+      <div class="field">
+        <input class="input" type="text"  name="other" value="{{bank.other}}">
+      </div>
+    </div>
+  </div>
+  <button class="button is-primary">Update Bank</button>
+</form>
+>>>>>>> 9eb855dcce3925702cc09dcdc94d360e637093b8
