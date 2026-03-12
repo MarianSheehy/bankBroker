@@ -2,7 +2,7 @@ import Mongoose from "mongoose";
 
 const { Schema } = Mongoose;
 
-const birdSchema = new Schema({
+const bankSchema = new Schema({
   title: String,
   date: String,
   other: String,
@@ -12,4 +12,4 @@ const birdSchema = new Schema({
   },
 });
 
-export const Bird = Mongoose.model("Bird", birdSchema);
+export const Bank = Mongoose.model("Bank", bankSchema);

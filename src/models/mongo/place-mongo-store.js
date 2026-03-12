@@ -1,6 +1,6 @@
 import Mongoose from "mongoose";
 import { Place } from "./place.js";
-import { birdMongoStore } from "./bird-mongo-store.js";
+import { bankMongoStore } from "./bank-mongo-store.js";
 
 export const placeMongoStore = {
   async getAllPlaces() {
@@ -12,7 +12,7 @@ export const placeMongoStore = {
     if (Mongoose.isValidObjectId(id)) {
       const place = await Place.findOne({ _id: id }).lean();
       if (place) {
-        place.birds = await birdMongoStore.getBirdsByPlaceId(place._id);
+        place.banks = await bankMongoStore.getBanksByPlaceId(place._id);
       }
       return place;
     }

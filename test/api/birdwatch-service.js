@@ -1,21 +1,21 @@
 import axios from "axios";
 import { serviceUrl } from "../fixtures.js";
 
-export const birdwatchService = {
-  birdwatchUrl: serviceUrl,
+export const bankbrokerService = {
+  bankbrokerUrl: serviceUrl,
 
   async createUser(user) {
-    const res = await axios.post(`${this.birdwatchUrl}/api/users`, user);
+    const res = await axios.post(`${this.bankbrokerUrl}/api/users`, user);
     return res.data;
   },
 
   async getUser(id) {
-    const res = await axios.get(`${this.birdwatchUrl}/api/users/${id}`);
+    const res = await axios.get(`${this.bankbrokerUrl}/api/users/${id}`);
     return res.data;
   },
 
   async authenticate(user) {
-    const response = await axios.post(`${this.birdwatchUrl}/api/users/authenticate`, user);
+    const response = await axios.post(`${this.bankbrokerUrl}/api/users/authenticate`, user);
     axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
     return response.data;
   },
@@ -25,62 +25,62 @@ export const birdwatchService = {
   },
 
   async getAllUsers() {
-    const res = await axios.get(`${this.birdwatchUrl}/api/users`);
+    const res = await axios.get(`${this.bankbrokerUrl}/api/users`);
     return res.data;
   },
 
   async deleteAllUsers() {
-    const res = await axios.delete(`${this.birdwatchUrl}/api/users`);
+    const res = await axios.delete(`${this.bankbrokerUrl}/api/users`);
     return res.data;
   },
 
   async createPlace(place) {
-    const res = await axios.post(`${this.birdwatchUrl}/api/places`, place);
+    const res = await axios.post(`${this.bankbrokerUrl}/api/places`, place);
     return res.data;
   },
 
   async deleteAllPlaces() {
-    const response = await axios.delete(`${this.birdwatchUrl}/api/places`);
+    const response = await axios.delete(`${this.bankbrokerUrl}/api/places`);
     return response.data;
   },
 
   async deletePlace(id) {
-    const response = await axios.delete(`${this.birdwatchUrl}/api/places/${id}`);
+    const response = await axios.delete(`${this.bankbrokerUrl}/api/places/${id}`);
     return response;
   },
 
   async getAllPlaces() {
-    const res = await axios.get(`${this.birdwatchUrl}/api/places`);
+    const res = await axios.get(`${this.bankbrokerUrl}/api/places`);
     return res.data;
   },
 
   async getPlace(id) {
-    const res = await axios.get(`${this.birdwatchUrl}/api/places/${id}`);
+    const res = await axios.get(`${this.bankbrokerUrl}/api/places/${id}`);
     return res.data;
   },
 
-  async getAllBirds() {
-    const res = await axios.get(`${this.birdwatchUrl}/api/birds`);
+  async getAllBanks() {
+    const res = await axios.get(`${this.bankbrokerUrl}/api/banks`);
     return res.data;
   },
 
-  async createBird(id, bird) {
-    const res = await axios.post(`${this.birdwatchUrl}/api/places/${id}/birds`, bird);
+  async createBank(id, bank) {
+    const res = await axios.post(`${this.bankbrokerUrl}/api/places/${id}/banks`, bank);
     return res.data;
   },
 
-  async deleteAllBirds() {
-    const res = await axios.delete(`${this.birdwatchUrl}/api/birds`);
+  async deleteAllBanks() {
+    const res = await axios.delete(`${this.bankbrokerUrl}/api/banks`);
     return res.data;
   },
 
-  async getBird(id) {
-    const res = await axios.get(`${this.birdwatchUrl}/api/birds/${id}`);
+  async getBank(id) {
+    const res = await axios.get(`${this.bankbrokerUrl}/api/banks/${id}`);
     return res.data;
   },
 
-  async deleteBird(id) {
-    const res = await axios.delete(`${this.birdwatchUrl}/api/birds/${id}`);
+  async deleteBank(id) {
+    const res = await axios.delete(`${this.bankbrokerUrl}/api/banks/${id}`);
     return res.data;
   },
 };

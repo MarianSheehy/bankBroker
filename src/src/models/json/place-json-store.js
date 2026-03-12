@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 import { db } from "./store-utils.js";
-import { birdJsonStore } from "./bird-json-store.js";
+import { bankJsonStore } from "./bank-json-store.js";
 
 export const placeJsonStore = {
   async getAllPlaces() {
@@ -20,7 +20,7 @@ export const placeJsonStore = {
     await db.read();
     let list = db.data.places.find((place) => place._id === id);
     if (list) {
-      list.birds = await birdJsonStore.getBirdsByPlaceId(list._id);
+      list.banks = await bankJsonStore.getBanksByPlaceId(list._id);
     } else {
       list = null;
     }

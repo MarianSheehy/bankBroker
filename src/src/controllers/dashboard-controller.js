@@ -7,7 +7,7 @@ export const dashboardController = {
       const loggedInUser = request.auth.credentials;
       const places = await db.placeStore.getUserPlaces(loggedInUser._id);
       const viewData = {
-        title: "BirdWatch Dashboard",
+        title: "BankBroker Dashboard",
         user: loggedInUser,
         places: places,
       };

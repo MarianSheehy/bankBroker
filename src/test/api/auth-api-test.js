@@ -1,26 +1,26 @@
 import { assert } from "chai";
-import { birdwatchService } from "./birdwatch-service.js";
+import { bankbrokerService } from "./bankbroker-service.js";
 import { decodeToken } from "../../src/api/jwt-utils.js";
 import { maggie, maggieCredentials } from "../fixtures.js";
 
 suite("Authentication API tests", async () => {
   setup(async () => {
-    birdwatchService.clearAuth();
-    await birdwatchService.createUser(maggie);
-    await birdwatchService.authenticate(maggieCredentials);
-    await birdwatchService.deleteAllUsers();
+    bankbrokerService.clearAuth();
+    await bankbrokerService.createUser(maggie);
+    await bankbrokerService.authenticate(maggieCredentials);
+    await bankbrokerService.deleteAllUsers();
   });
 
   test("authenticate", async () => {
-    const returnedUser = await birdwatchService.createUser(maggie);
-    const response = await birdwatchService.authenticate(maggieCredentials);
+    const returnedUser = await bankbrokerService.createUser(maggie);
+    const response = await bankbrokerService.authenticate(maggieCredentials);
     assert(response.success);
     assert.isDefined(response.token);
   });
 
   test("verify Token", async () => {
-    const returnedUser = await birdwatchService.createUser(maggie);
-    const response = await birdwatchService.authenticate(maggieCredentials);
+    const returnedUser = await bankbrokerService.createUser(maggie);
+    const response = await bankbrokerService.authenticate(maggieCredentials);
 
     const userInfo = decodeToken(response.token);
     assert.equal(userInfo.email, returnedUser.email);
@@ -28,9 +28,9 @@ suite("Authentication API tests", async () => {
   });
 
   test("check Unauthorized", async () => {
-    birdwatchService.clearAuth();
+    bankbrokerService.clearAuth();
     try {
-      await birdwatchService.deleteAllUsers();
+      await bankbrokerService.deleteAllUsers();
       assert.fail("Route not protected");
     } catch (error) {
       assert.equal(error.response.data.statusCode, 401);

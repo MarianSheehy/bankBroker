@@ -1,49 +1,49 @@
 import Mongoose from "mongoose";
-import { Bird } from "./bird.js";
+import { Bank } from "./bank.js";
 
-export const birdMongoStore = {
-  async getAllBirds() {
-    const birds = await Bird.find().lean();
-    return birds;
+export const bankMongoStore = {
+  async getAllBanks() {
+    const banks = await Bank.find().lean();
+    return banks;
   },
 
-  async addBird(placeId, bird) {
-    bird.placeid = placeId;
-    const newBird = new Bird(bird);
-    const birdObj = await newBird.save();
-    return this.getBirdById(birdObj._id);
+  async addBank(placeId, bank) {
+    bank.placeid = placeId;
+    const newBank = new Bank(bank);
+    const bankObj = await newBank.save();
+    return this.getBankById(bankObj._id);
   },
 
-  async getBirdsByPlaceId(id) {
-    const birds = await Bird.find({ placeid: id }).lean();
-    return birds;
+  async getBanksByPlaceId(id) {
+    const banks = await Bank.find({ placeid: id }).lean();
+    return banks;
   },
 
-  async getBirdById(id) {
+  async getBankById(id) {
     if (Mongoose.isValidObjectId(id)) {
-      const bird = await Bird.findOne({ _id: id }).lean();
-      return bird;
+      const bank = await Bank.findOne({ _id: id }).lean();
+      return bank;
     }
     return null;
   },
 
-  async deleteBird(id) {
+  async deleteBank(id) {
     try {
-      await Bird.deleteOne({ _id: id });
+      await Bank.deleteOne({ _id: id });
     } catch (error) {
       console.log("bad id");
     }
   },
 
-  async deleteAllBirds() {
-    await Bird.deleteMany({});
+  async deleteAllBanks() {
+    await Bank.deleteMany({});
   },
 
-  async updateBird(bird, updatedBird) {
-    const birdDoc = await Bird.findOne({ _id: bird._id });
-    birdDoc.title = updatedBird.title;
-    birdDoc.date = updatedBird.date;
-    birdDoc.other = updatedBird.other;
-    await birdDoc.save();
+  async updateBank(bank, updatedBank) {
+    const bankDoc = await Bank.findOne({ _id: bank._id });
+    bankDoc.title = updatedBank.title;
+    bankDoc.date = updatedBank.date;
+    bankDoc.other = updatedBank.other;
+    await bankDoc.save();
   },
 };

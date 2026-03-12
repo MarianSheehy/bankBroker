@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { birdMemStore } from "./bird-mem-store.js";
+import { bankMemStore } from "./bank-mem-store.js";
 
 let places = [];
 
@@ -17,7 +17,7 @@ export const placeMemStore = {
   async getPlaceById(id) {
     const list = places.find((place) => place._id === id);
     if (list) {
-      list.birds = await birdMemStore.getBirdsByPlaceId(list._id);
+      list.banks = await bankMemStore.getBanksByPlaceId(list._id);
       return list;
     }
     return null;

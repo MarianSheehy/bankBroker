@@ -5,13 +5,13 @@ export const accountsController = {
   index: {
     auth: false,
     handler: function (request, h) {
-      return h.view("main", { title: "Welcome to BirdWatch" });
+      return h.view("main", { title: "Welcome to BankBroker" });
     },
   },
   showSignup: {
     auth: false,
     handler: function (request, h) {
-      return h.view("signup-view", { title: "Sign up for BirdWatch" });
+      return h.view("signup-view", { title: "Sign up for BankBroker" });
     },
   },
   signup: {

@@ -1,25 +1,25 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { IdSpec, BirdSpec, BirdSpecPlus, BirdArraySpec } from "../models/joi-schemas.js";
+import { IdSpec, BankSpec, BankSpecPlus, BankArraySpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 
-export const birdApi = {
+export const bankApi = {
   find: {
     auth: {
       strategy: "jwt",
     },
     handler: async function (request, h) {
       try {
-        const birds = await db.birdStore.getAllBirds();
-        return birds;
+        const banks = await db.bankStore.getAllBanks();
+        return banks;
       } catch (err) {
         return Boom.serverUnavailable("Database Error:", err);
       }
     },
     tags: ["api"],
-    response: { schema: BirdArraySpec, failAction: validationError },
-    description: "Get all birdApi",
-    notes: "Returns all birdApi",
+    response: { schema: BankArraySpec, failAction: validationError },
+    description: "Get all bankApi",
+    notes: "Returns all bankApi",
   },
 
   findOne: {
@@ -28,20 +28,20 @@ export const birdApi = {
     },
     async handler(request) {
       try {
-        const bird = await db.birdStore.getBirdById(request.params.id);
-        if (!bird) {
-          return Boom.notFound("No bird with this id");
+        const bank = await db.bankStore.getBankById(request.params.id);
+        if (!bank) {
+          return Boom.notFound("No bank with this id");
         }
-        return bird;
+        return bank;
       } catch (err) {
-        return Boom.serverUnavailable("No bird with this id:", err);
+        return Boom.serverUnavailable("No bank with this id:", err);
       }
     },
     tags: ["api"],
-    description: "Find a Bird",
-    notes: "Returns a bird",
+    description: "Find a Bank",
+    notes: "Returns a bank",
     validate: { params: { id: IdSpec }, failAction: validationError },
-    response: { schema: BirdSpecPlus, failAction: validationError },
+    response: { schema: BankSpecPlus, failAction: validationError },
   },
 
   create: {
@@ -50,20 +50,20 @@ export const birdApi = {
     },
     handler: async function (request, h) {
       try {
-        const bird = await db.birdStore.addBird(request.params.id, request.payload);
-        if (bird) {
-          return h.response(bird).code(201);
+        const bank = await db.bankStore.addBank(request.params.id, request.payload);
+        if (bank) {
+          return h.response(bank).code(201);
         }
-        return Boom.badImplementation("error creating bird");
+        return Boom.badImplementation("error creating bank");
       } catch (err) {
         return Boom.serverUnavailable("Database Error:", err);
       }
     },
     tags: ["api"],
-    description: "Create a bird",
-    notes: "Returns the newly created bird",
-    validate: { payload: BirdSpec },
-    response: { schema: BirdSpecPlus, failAction: validationError },
+    description: "Create a bank",
+    notes: "Returns the newly created bank",
+    validate: { payload: BankSpec },
+    response: { schema: BankSpecPlus, failAction: validationError },
   },
 
   deleteAll: {
@@ -72,14 +72,14 @@ export const birdApi = {
     },
     handler: async function (request, h) {
       try {
-        await db.birdStore.deleteAllBirds();
+        await db.bankStore.deleteAllBanks();
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error:", err);
       }
     },
     tags: ["api"],
-    description: "Delete all birdApi",
+    description: "Delete all bankApi",
   },
 
   deleteOne: {
@@ -88,18 +88,18 @@ export const birdApi = {
     },
     handler: async function (request, h) {
       try {
-        const bird = await db.birdStore.getBirdById(request.params.id);
-        if (!bird) {
-          return Boom.notFound("No Bird with this id");
+        const bank = await db.bankStore.getBankById(request.params.id);
+        if (!bank) {
+          return Boom.notFound("No Bank with this id");
         }
-        await db.birdStore.deleteBird(bird._id);
+        await db.bankStore.deleteBank(bank._id);
         return h.response().code(204);
       } catch (err) {
-        return Boom.serverUnavailable("No Bird with this id:", err);
+        return Boom.serverUnavailable("No Bank with this id:", err);
       }
     },
     tags: ["api"],
-    description: "Delete a bird",
+    description: "Delete a bank",
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 };

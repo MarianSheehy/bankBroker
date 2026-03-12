@@ -1,6 +1,6 @@
 import { userApi } from "./api/user-api.js";
 import { placeApi } from "./api/place-api.js";
-import { birdApi } from "./api/bird-api.js";
+import { bankApi } from "./api/bank-api.js";
 
 export const apiRoutes = [
   { method: "GET", path: "/api/users", config: userApi.find },
@@ -15,9 +15,9 @@ export const apiRoutes = [
   { method: "GET", path: "/api/places/{id}", config: placeApi.findOne },
   { method: "DELETE", path: "/api/places/{id}", config: placeApi.deleteOne },
 
-  { method: "GET", path: "/api/birds", config: birdApi.find },
-  { method: "GET", path: "/api/birds/{id}", config: birdApi.findOne },
-  { method: "POST", path: "/api/places/{id}/birds", config: birdApi.create },
-  { method: "DELETE", path: "/api/birds", config: birdApi.deleteAll },
-  { method: "DELETE", path: "/api/birds/{id}", config: birdApi.deleteOne },
+  { method: "GET", path: "/api/banks", config: bankApi.find },
+  { method: "GET", path: "/api/banks/{id}", config: bankApi.findOne },
+  { method: "POST", path: "/api/places/{id}/banks", config: bankApi.create },
+  { method: "DELETE", path: "/api/banks", config: bankApi.deleteAll },
+  { method: "DELETE", path: "/api/banks/{id}", config: bankApi.deleteOne },
 ];

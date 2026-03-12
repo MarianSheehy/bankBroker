@@ -21,27 +21,27 @@ export const UserSpecPlus = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
-export const BirdSpec = Joi.object()
+export const BankSpec = Joi.object()
   .keys({
-    title: Joi.string().required().example("Blackbird"),
+    title: Joi.string().required().example("Blackbank"),
     date: Joi.string().required().example("dd-mm-yyyy"),
     other: Joi.string().required().example("1 in flight"),
     placeid: IdSpec,
   })
-  .label("Bird");
+  .label("Bank");
 
-export const BirdSpecPlus = BirdSpec.keys({
+export const BankSpecPlus = BankSpec.keys({
   _id: IdSpec,
   __v: Joi.number(),
-}).label("BirdPlus");
+}).label("BankPlus");
 
-export const BirdArraySpec = Joi.array().items(BirdSpecPlus).label("BirdArray");
+export const BankArraySpec = Joi.array().items(BankSpecPlus).label("BankArray");
 
 export const PlaceSpec = Joi.object()
   .keys({
     title: Joi.string().required().example("Bray Harbour"),
     userid: IdSpec,
-    birds: BirdArraySpec,
+    banks: BankArraySpec,
   })
   .label("Place");
 

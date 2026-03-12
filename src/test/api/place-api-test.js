@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 import { assert } from "chai";
-import { birdwatchService } from "./birdwatch-service.js";
+import { bankbrokerService } from "./bankbroker-service.js";
 import { assertSubset } from "../test-utils.js";
 import { maggie, maggieCredentials, howth, testPlaces } from "../fixtures.js";
 
@@ -10,30 +10,30 @@ suite("Place API tests", () => {
   let user = null;
 
   setup(async () => {
-    birdwatchService.clearAuth();
-    user = await birdwatchService.createUser(maggie);
-    await birdwatchService.authenticate(maggieCredentials);
-    await birdwatchService.deleteAllPlaces();
-    await birdwatchService.deleteAllUsers();
-    user = await birdwatchService.createUser(maggie);
-    await birdwatchService.authenticate(maggieCredentials);
+    bankbrokerService.clearAuth();
+    user = await bankbrokerService.createUser(maggie);
+    await bankbrokerService.authenticate(maggieCredentials);
+    await bankbrokerService.deleteAllPlaces();
+    await bankbrokerService.deleteAllUsers();
+    user = await bankbrokerService.createUser(maggie);
+    await bankbrokerService.authenticate(maggieCredentials);
     howth.userid = user._id;
   });
 
   teardown(async () => {});
 
   test("create place", async () => {
-    const returnedPlace = await birdwatchService.createPlace(howth);
+    const returnedPlace = await bankbrokerService.createPlace(howth);
     assert.isNotNull(returnedPlace);
     assertSubset(howth, returnedPlace);
   });
 
   test("delete a place", async () => {
-    const place = await birdwatchService.createPlace(howth);
-    const response = await birdwatchService.deletePlace(place._id);
+    const place = await bankbrokerService.createPlace(howth);
+    const response = await bankbrokerService.deletePlace(place._id);
     assert.equal(response.status, 204);
     try {
-      const returnedPlace = await birdwatchService.getPlace(place.id);
+      const returnedPlace = await bankbrokerService.getPlace(place.id);
       assert.fail("Should not return a response");
     } catch (error) {
       assert(error.response.data.message === "No Place with this id", "Incorrect Response Message");
@@ -44,18 +44,18 @@ suite("Place API tests", () => {
     for (let i = 0; i < testPlaces.length; i += 1) {
       testPlaces[i].userid = user._id;
       // eslint-disable-next-line no-await-in-loop
-      await birdwatchService.createPlace(testPlaces[i]);
+      await bankbrokerService.createPlace(testPlaces[i]);
     }
-    let returnedLists = await birdwatchService.getAllPlaces();
+    let returnedLists = await bankbrokerService.getAllPlaces();
     assert.equal(returnedLists.length, testPlaces.length);
-    await birdwatchService.deleteAllPlaces();
-    returnedLists = await birdwatchService.getAllPlaces();
+    await bankbrokerService.deleteAllPlaces();
+    returnedLists = await bankbrokerService.getAllPlaces();
     assert.equal(returnedLists.length, 0);
   });
 
   test("remove non-existant place", async () => {
     try {
-      const response = await birdwatchService.deletePlace("not an id");
+      const response = await bankbrokerService.deletePlace("not an id");
       assert.fail("Should not return a response");
     } catch (error) {
       assert(error.response.data.message === "No Place with this id", "Incorrect Response Message");

@@ -27,9 +27,9 @@ export const seedData = {
       userid: "->users.bart"
     }
   },
-  birds: {
-    _model : "Bird",
-    bird_1 : {
+  banks: {
+    _model : "Bank",
+    bank_1 : {
       title: "Starling",
       other: "many in flight",
       placeid: "->places.howth"

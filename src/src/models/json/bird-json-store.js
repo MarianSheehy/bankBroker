@@ -1,51 +1,51 @@
 import { v4 } from "uuid";
 import { db } from "./store-utils.js";
 
-export const birdJsonStore = {
-  async getAllBirds() {
+export const bankJsonStore = {
+  async getAllBanks() {
     await db.read();
-    return db.data.birds;
+    return db.data.banks;
   },
 
-  async addBird(placeId, bird) {
+  async addBank(placeId, bank) {
     await db.read();
-    bird._id = v4();
-    bird.placeid = placeId;
-    db.data.birds.push(bird);
+    bank._id = v4();
+    bank.placeid = placeId;
+    db.data.banks.push(bank);
     await db.write();
-    return bird;
+    return bank;
   },
 
-  async getBirdsByPlaceId(id) {
+  async getBanksByPlaceId(id) {
     await db.read();
-    let t = db.data.birds.filter((bird) => bird.placeid === id);
+    let t = db.data.banks.filter((bank) => bank.placeid === id);
     if (t === undefined) t = null;
     return t;
   },
 
-  async getBirdById(id) {
+  async getBankById(id) {
     await db.read();
-    let t = db.data.birds.find((bird) => bird._id === id);
+    let t = db.data.banks.find((bank) => bank._id === id);
     if (t === undefined) t = null;
     return t;
   },
 
-  async deleteBird(id) {
+  async deleteBank(id) {
     await db.read();
-    const index = db.data.birds.findIndex((bird) => bird._id === id);
-    if (index !== -1) db.data.birds.splice(index, 1);
+    const index = db.data.banks.findIndex((bank) => bank._id === id);
+    if (index !== -1) db.data.banks.splice(index, 1);
     await db.write();
   },
 
-  async deleteAllBirds() {
-    db.data.birds = [];
+  async deleteAllBanks() {
+    db.data.banks = [];
     await db.write();
   },
 
-  async updateBird(bird, updatedBird) {
-    bird.title = updatedBird.title;
-    bird.date = updatedBird.date;
-    bird.other = updatedBird.other;
+  async updateBank(bank, updatedBank) {
+    bank.title = updatedBank.title;
+    bank.date = updatedBank.date;
+    bank.other = updatedBank.other;
     await db.write();
   },
 };

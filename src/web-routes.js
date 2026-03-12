@@ -2,7 +2,7 @@ import { aboutController } from "./controllers/about-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { dashboardController } from "./controllers/dashboard-controller.js";
 import { placeController } from "./controllers/place-controller.js";
-import { birdController } from "./controllers/bird-controller.js";
+import { bankController } from "./controllers/bank-controller.js";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -19,13 +19,13 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard/deleteplace/{id}", config: dashboardController.deletePlace },
 
   { method: "GET", path: "/place/{id}", config: placeController.index },
-  { method: "POST", path: "/place/{id}/addbird", config: placeController.addBird },
-  { method: "GET", path: "/place/{id}/deletebird/{birdid}", config: placeController.deleteBird },
+  { method: "POST", path: "/place/{id}/addbank", config: placeController.addBank },
+  { method: "GET", path: "/place/{id}/deletebank/{bankid}", config: placeController.deleteBank },
   { method: "POST", path: "/place/{id}/uploadimage", config: placeController.uploadImage },
 
 
-  { method: "GET", path: "/bird/{id}/editbird/{birdid}", config: birdController.index },
-  { method: "POST", path: "/bird/{id}/updatebird/{birdid}", config: birdController.update },
+  { method: "GET", path: "/bank/{id}/editbank/{bankid}", config: bankController.index },
+  { method: "POST", path: "/bank/{id}/updatebank/{bankid}", config: bankController.update },
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 ];

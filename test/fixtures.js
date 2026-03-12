@@ -60,7 +60,7 @@ export const testPlaces = [
   }
 ];
 
-export const testBirds = [
+export const testBanks = [
   {
     "title": "Robin",
     "date" : "12/02/2023",

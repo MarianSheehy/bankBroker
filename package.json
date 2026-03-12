@@ -1,7 +1,7 @@
 {
-  "name": "birdwatch",
+  "name": "bankbroker",
   "version": "0.4.0",
-  "description": "An application for bird watchers",
+  "description": "An application for bank brokerers",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MarianSheehy/BirdWatch"
+    "url": "git+https://github.com/MarianSheehy/bankBroker"
   },
   "keywords": [
     "node",
@@ -20,9 +20,9 @@
   "author": "MarianSheehy",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MarianSheehy/BirdWatch/issues"
+    "url": "https://github.com/MarianSheehy/bankBroker/issues"
   },
-  "homepage": "https://github.com/MarianSheehy/birdwatch#readme",
+  "homepage": "https://github.com/MarianSheehy/bankbroker#readme",
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "@hapi/cookie": "^12.0.1",
@@ -41,6 +41,7 @@
     "jsonwebtoken": "^9.0.2",
     "lowdb": "^7.0.1",
     "mais-mongoose-seeder": "^1.0.7",
+    "mongodb": "^7.1.0",
     "mongoose": "^8.12.1",
     "sudo": "^1.0.3",
     "uuid": "^11.1.0"

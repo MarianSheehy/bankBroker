@@ -1,14 +1,14 @@
 <table class="table is-fullwidth">
   <thead>
     <tr>
-      <th>Bird Name</th>
+      <th>Bank Name</th>
       <th>Date Seen</th>
       <th>Other Info</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    {{#each place.birds}}
+    {{#each place.banks}}
       <tr>
         <td>
           {{title}}
@@ -20,7 +20,7 @@
           {{other}}
         </td>
         <td>
-          <a href="/place/{{../place._id}}/deletebird/{{_id}}" class="ui icon button">
+          <a href="/place/{{../place._id}}/deletebank/{{_id}}" class="ui icon button">
             <i class="fas fa-trash"></i>
           </a>
         </td>

@@ -26,7 +26,7 @@ if (result.error) {
 
 const swaggerOptions = {
   info: {
-    title: "BirdWatch API",
+    title: "BankBroker API",
     version: "0.3.0",
   },
   securityDefinitions: {

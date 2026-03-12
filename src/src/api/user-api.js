@@ -103,6 +103,6 @@ export const userApi = {
     },
     tags: ["api"],
     description: "Delete all userApi",
-    notes: "All userApi removed from BirdWatch",
+    notes: "All userApi removed from BankBroker",
   },
 };
