@@ -1,0 +1,26 @@
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Method</th>
+      <th>Bank</th>
+      <th>Donor</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each reports}}
+      <tr>
+        <td>{{amount}}</td>
+        <td>{{method}}</td>
+        <td>
+          {{#if bank.lastName}}
+            {{bank.lastName}}, {{bank.firstName}}
+          {{else}}
+            {{bank}}
+          {{/if}}
+        </td>
+        <td>{{donor}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

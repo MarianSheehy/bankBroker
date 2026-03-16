@@ -1,14 +1,16 @@
 {
   "name": "bankbroker",
-  "version": "0.4.0",
-  "description": "An application for bank brokerers",
-  "main": "src/server.js",
+  "version": "1.0.0",
+  "description": "An application for bank brokers",
+  "main": "src/server.ts",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "npx nodemon src/server.js  --ignore 'src/models/json/*.json'",
-    "lint": "npx eslint . --ext .js",
-    "test": "npx mocha --ui tdd test/**/*.js"
+    "start": "node --import tsx src/server.ts",
+    "dev": "nodemon src/server.ts",
+    "lint": "eslint src --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "npx mocha --ui tdd test/**/*.js",
+    "build": "tsc",
+    "build:watch": "tsc --watch"
   },
   "repository": {
     "type": "git",
@@ -16,7 +18,8 @@
   },
   "keywords": [
     "node",
-    "hapi"
+    "hapi",
+    "typescript"
   ],
   "author": "MarianSheehy",
   "license": "ISC",
@@ -31,10 +34,7 @@
     "@hapi/inert": "^7.1.0",
     "@hapi/vision": "^7.0.3",
     "cloudinary": "^2.9.0",
-    "curl": "^0.1.4",
     "dotenv": "^17.3.1",
-    "exit-hook": "^5.1.0",
-    "g": "^2.0.1",
     "handlebars": "^4.7.8",
     "hapi-auth-jwt2": "^11.0.0",
     "hapi-swagger": "^17.3.2",
@@ -42,14 +42,17 @@
     "jsonwebtoken": "^9.0.3",
     "lowdb": "^7.0.1",
     "mais-mongoose-seeder": "^1.0.7",
-    "mongodb": "^7.1.0",
     "mongoose": "^9.3.0",
-    "python": "^0.0.4",
-    "python3": "^0.0.1",
-    "sudo": "^1.0.3",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@types/hapi__cookie": "^12.0.5",
+    "@types/hapi__inert": "^5.2.10",
+    "@types/hapi__vision": "^5.5.8",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.27.0",
+    "@typescript-eslint/parser": "^8.27.0",
     "axios": "^1.13.6",
     "chai": "^6.2.2",
     "eslint": "^8.2.0",
@@ -58,9 +61,11 @@
     "eslint-plugin-import": "^2.32.0",
     "mocha": "^11.7.5",
     "nodemon": "^3.1.14",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   }
 }
