@@ -34,3 +34,12 @@ export const db = {
     }
   }
 };
+
+export function connectDb(dbType) {
+  switch (dbType) {
+    case "mongo":
+      connectMongo(db);
+      break;
+    default:
+  }
+}

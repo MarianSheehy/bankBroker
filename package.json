@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "lint": "eslint . --ext .js",
-    "test": "mocha --ui tdd test/**.js -exit"
+    "dev": "npx nodemon src/server.js  --ignore 'src/models/json/*.json'",
+    "lint": "npx eslint . --ext .js",
+    "test": "npx mocha --ui tdd test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -26,36 +27,38 @@
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "@hapi/cookie": "^12.0.1",
-    "@hapi/hapi": "^21.4.0",
+    "@hapi/hapi": "^21.4.7",
     "@hapi/inert": "^7.1.0",
     "@hapi/vision": "^7.0.3",
-    "cloudinary": "^2.6.0",
+    "cloudinary": "^2.9.0",
     "curl": "^0.1.4",
-    "dotenv": "^16.4.7",
-    "exit-hook": "^4.0.0",
+    "dotenv": "^17.3.1",
+    "exit-hook": "^5.1.0",
     "g": "^2.0.1",
     "handlebars": "^4.7.8",
     "hapi-auth-jwt2": "^11.0.0",
     "hapi-swagger": "^17.3.2",
     "joi": "^17.13.3",
-    "jsonwebtoken": "^9.0.2",
+    "jsonwebtoken": "^9.0.3",
     "lowdb": "^7.0.1",
     "mais-mongoose-seeder": "^1.0.7",
     "mongodb": "^7.1.0",
-    "mongoose": "^8.12.1",
+    "mongoose": "^9.3.0",
+    "python": "^0.0.4",
+    "python3": "^0.0.1",
     "sudo": "^1.0.3",
-    "uuid": "^11.1.0"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "axios": "^1.8.4",
-    "chai": "^5.2.0",
-    "eslint": "^8.57.1",
+    "axios": "^1.13.6",
+    "chai": "^6.2.2",
+    "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-import": "^2.31.0",
-    "mocha": "^11.1.0",
-    "nodemon": "^3.1.9",
-    "prettier": "^3.5.3"
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "mocha": "^11.7.5",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.1"
   },
   "engines": {
     "node": ">=16"

@@ -1,7 +1,11 @@
 import * as dotenv from "dotenv";
 import Mongoose from "mongoose";
 import * as mongooseSeeder from "mais-mongoose-seeder";
+import { bankMongoStore } from "./bank-mongo-store.js";
+import { userMongoStore } from "./user-mongo-store.js";
+import { reportsMongoStore } from "./reports-mongo-store.js";
 import { seedData } from "./seed-data.js";
+
 
 const seedLib = mongooseSeeder.default;
 
@@ -30,4 +34,9 @@ export function connectMongo() {
     console.log(`database connected to ${this.name} on ${this.host}`);
     seed();
   });
+
+  db.userStore = userMongoStore;
+  db.bankStore = bankMongoStore;
+  db.reportStore = reportsMongoStore;
 }
+

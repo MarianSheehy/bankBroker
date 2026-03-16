@@ -10,8 +10,8 @@ export const bankApi = {
     },
     handler: async function (request, h) {
       try {
-        const banks = await db.bankStore.getAllBanks();
-        return banks;
+        const bank = await db.bankStore.getAllBanks();
+        return bank;
       } catch (err) {
         return Boom.serverUnavailable("Database Error:", err);
       }
