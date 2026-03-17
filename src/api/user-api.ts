@@ -26,7 +26,10 @@ export const userApi = {
     tags: ["api"],
     description: "Get all users",
     notes: "Returns details of all users",
-    response: { schema: UserArray, failAction: validationError },
+    response: {
+      schema: UserArray,
+      failAction: validationError,
+    },
   },
 
   findOne: {
@@ -45,8 +48,14 @@ export const userApi = {
     tags: ["api"],
     description: "Get a specific user",
     notes: "Returns user details",
-    validate: { params: { id: IdSpec }, failAction: validationError },
-    response: { schema: UserSpecPlus, failAction: validationError },
+    validate: {
+      params: IdSpec,              // was { id: IdSpec }
+      failAction: validationError,
+    },
+    response: {
+      schema: UserSpecPlus,
+      failAction: validationError,
+    },
   },
 
   create: {
@@ -65,8 +74,14 @@ export const userApi = {
     tags: ["api"],
     description: "Create a user",
     notes: "Returns the newly created user",
-    validate: { payload: UserSpec, failAction: validationError },
-    response: { schema: UserSpecPlus, failAction: validationError },
+    validate: {
+      payload: UserSpec,
+      failAction: validationError,
+    },
+    response: {
+      schema: UserSpecPlus,
+      failAction: validationError,
+    },
   },
 
   authenticate: {
@@ -90,8 +105,14 @@ export const userApi = {
     tags: ["api"],
     description: "Authenticate a user",
     notes: "If user has valid email/password, create and return a JWT token",
-    validate: { payload: UserCredentialsSpec, failAction: validationError },
-    response: { schema: JwtAuth, failAction: validationError },
+    validate: {
+      payload: UserCredentialsSpec,
+      failAction: validationError,
+    },
+    response: {
+      schema: JwtAuth,
+      failAction: validationError,
+    },
   },
 
   deleteAll: {

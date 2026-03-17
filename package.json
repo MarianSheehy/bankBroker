@@ -43,6 +43,7 @@
     "lowdb": "^7.0.1",
     "mais-mongoose-seeder": "^1.0.7",
     "mongoose": "^9.3.0",
+    "plaid": "^41.4.0",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

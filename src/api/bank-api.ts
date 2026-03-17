@@ -16,9 +16,12 @@ export const bankApi = {
       }
     },
     tags: ["api"],
-    response: { schema: BankArraySpec, failAction: validationError },
     description: "Get all banks",
     notes: "Returns all banks",
+    response: {
+      schema: BankArraySpec,
+      failAction: validationError, // OK for response
+    },
   },
 
   findOne: {
@@ -37,8 +40,14 @@ export const bankApi = {
     tags: ["api"],
     description: "Find a bank",
     notes: "Returns a bank",
-    validate: { params: { id: IdSpec }, failAction: validationError },
-    response: { schema: BankSpecPlus, failAction: validationError },
+    validate: {
+      params: IdSpec,          // use Joi schema, not { id: IdSpec }
+      failAction: validationError,
+    },
+    response: {
+      schema: BankSpecPlus,
+      failAction: validationError,
+    },
   },
 
   create: {
@@ -57,8 +66,14 @@ export const bankApi = {
     tags: ["api"],
     description: "Create a bank",
     notes: "Returns the newly created bank",
-    validate: { payload: BankSpec },
-    response: { schema: BankSpecPlus, failAction: validationError },
+    validate: {
+      payload: BankSpec,
+      failAction: validationError,
+    },
+    response: {
+      schema: BankSpecPlus,
+      failAction: validationError,
+    },
   },
 
   deleteAll: {
@@ -89,6 +104,9 @@ export const bankApi = {
     },
     tags: ["api"],
     description: "Delete a bank",
-    validate: { params: { id: IdSpec }, failAction: validationError },
+    validate: {
+      params: IdSpec,
+      failAction: validationError,
+    },
   },
 };

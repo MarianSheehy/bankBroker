@@ -1,0 +1,175 @@
+{{> menu active="plaid"}}
+
+<section class="section">
+  <h1 class="title">Link Your Bank Account</h1>
+  <p class="subtitle">Connect your bank through Plaid to view accounts and transactions.</p>
+
+  {{!-- Step 1: Connect bank --}}
+  <div class="box">
+    <h2 class="title is-5">Step 1 — Connect</h2>
+    <p class="mb-4">Click the button below to securely link your bank account via Plaid.</p>
+    <button id="link-btn" class="button is-primary is-medium" disabled>
+      <span class="icon"><i class="fas fa-university"></i></span>
+      <span>Connect Bank Account</span>
+    </button>
+    <p id="link-status" class="help mt-2"></p>
+  </div>
+
+  {{!-- Step 2: View accounts --}}
+  <div id="accounts-section" class="box" style="display:none;">
+    <h2 class="title is-5">Step 2 — Your Accounts</h2>
+    <button id="accounts-btn" class="button is-info">
+      <span class="icon"><i class="fas fa-list"></i></span>
+      <span>Fetch Accounts</span>
+    </button>
+    <div id="accounts-list" class="mt-4"></div>
+  </div>
+
+  {{!-- Step 3: View transactions --}}
+  <div id="transactions-section" class="box" style="display:none;">
+    <h2 class="title is-5">Step 3 — Transactions</h2>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <label class="label">From</label>
+          <input id="tx-start" class="input" type="date" value="2025-01-01">
+        </div>
+        <div class="field">
+          <label class="label">To</label>
+          <input id="tx-end" class="input" type="date">
+        </div>
+        <div class="field" style="align-self:flex-end;">
+          <button id="tx-btn" class="button is-success">
+            <span class="icon"><i class="fas fa-search"></i></span>
+            <span>Fetch Transactions</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="transactions-list" class="mt-4"></div>
+  </div>
+</section>
+
+{{!-- Plaid Link SDK --}}
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+
+<script>
+  // Set default "To" date to today
+  document.getElementById("tx-end").value = new Date().toISOString().split("T")[0];
+
+  const linkBtn = document.getElementById("link-btn");
+  const linkStatus = document.getElementById("link-status");
+
+  // ── 1. Get a link_token from our server and initialise Plaid Link ──
+  async function initPlaidLink() {
+    try {
+      const res = await fetch("/api/plaid/create-link-token", { method: "POST" });
+      if (!res.ok) throw new Error("Server returned " + res.status);
+      const data = await res.json();
+
+      const handler = Plaid.create({
+        token: data.link_token,
+        onSuccess: async function (publicToken, metadata) {
+          linkStatus.textContent = "Exchanging token...";
+          const exchangeRes = await fetch("/api/plaid/exchange-token", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ public_token: publicToken }),
+          });
+          const exchangeData = await exchangeRes.json();
+          if (exchangeData.success) {
+            linkStatus.textContent = "Bank account linked successfully!";
+            linkStatus.classList.add("has-text-success");
+            linkBtn.textContent = "Reconnect";
+            document.getElementById("accounts-section").style.display = "block";
+            document.getElementById("transactions-section").style.display = "block";
+          } else {
+            linkStatus.textContent = "Token exchange failed. Try again.";
+            linkStatus.classList.add("has-text-danger");
+          }
+        },
+        onExit: function (err) {
+          if (err) {
+            linkStatus.textContent = "Link exited with error: " + err.display_message;
+            linkStatus.classList.add("has-text-danger");
+          }
+        },
+      });
+
+      linkBtn.disabled = false;
+      linkBtn.addEventListener("click", function () { handler.open(); });
+    } catch (e) {
+      linkStatus.textContent = "Could not initialise Plaid Link. Check your API keys.";
+      linkStatus.classList.add("has-text-danger");
+      console.error(e);
+    }
+  }
+
+  initPlaidLink();
+
+  // ── 2. Fetch and display accounts ──
+  document.getElementById("accounts-btn").addEventListener("click", async function () {
+    const container = document.getElementById("accounts-list");
+    container.innerHTML = "<p>Loading...</p>";
+    try {
+      const res = await fetch("/api/plaid/accounts", { method: "POST" });
+      const data = await res.json();
+      if (data.accounts && data.accounts.length) {
+        let html = '<table class="table is-fullwidth is-striped">';
+        html += "<thead><tr><th>Name</th><th>Type</th><th>Mask</th><th>Available</th><th>Current</th></tr></thead><tbody>";
+        data.accounts.forEach(function (a) {
+          html += "<tr>";
+          html += "<td>" + a.name + "</td>";
+          html += "<td>" + a.type + " / " + a.subtype + "</td>";
+          html += "<td>****" + (a.mask || "—") + "</td>";
+          html += "<td>" + (a.balances.available != null ? "€" + a.balances.available : "—") + "</td>";
+          html += "<td>" + (a.balances.current != null ? "€" + a.balances.current : "—") + "</td>";
+          html += "</tr>";
+        });
+        html += "</tbody></table>";
+        container.innerHTML = html;
+      } else {
+        container.innerHTML = "<p>No accounts found.</p>";
+      }
+    } catch (e) {
+      container.innerHTML = '<p class="has-text-danger">Error fetching accounts.</p>';
+      console.error(e);
+    }
+  });
+
+  // ── 3. Fetch and display transactions ──
+  document.getElementById("tx-btn").addEventListener("click", async function () {
+    const container = document.getElementById("transactions-list");
+    container.innerHTML = "<p>Loading...</p>";
+    const startDate = document.getElementById("tx-start").value;
+    const endDate = document.getElementById("tx-end").value;
+    try {
+      const res = await fetch("/api/plaid/transactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ start_date: startDate, end_date: endDate }),
+      });
+      const data = await res.json();
+      if (data.transactions && data.transactions.length) {
+        let html = '<p class="mb-2"><strong>' + data.total + " total transactions</strong></p>";
+        html += '<table class="table is-fullwidth is-striped">';
+        html += "<thead><tr><th>Date</th><th>Name</th><th>Category</th><th>Amount</th></tr></thead><tbody>";
+        data.transactions.forEach(function (t) {
+          html += "<tr>";
+          html += "<td>" + t.date + "</td>";
+          html += "<td>" + t.name + "</td>";
+          html += "<td>" + (t.category ? t.category.join(", ") : "—") + "</td>";
+          html += '<td class="' + (t.amount > 0 ? "has-text-danger" : "has-text-success") + '">€' + Math.abs(t.amount).toFixed(2) + "</td>";
+          html += "</tr>";
+        });
+        html += "</tbody></table>";
+        container.innerHTML = html;
+      } else {
+        container.innerHTML = "<p>No transactions found for this date range.</p>";
+      }
+    } catch (e) {
+      container.innerHTML = '<p class="has-text-danger">Error fetching transactions.</p>';
+      console.error(e);
+    }
+  });
+</script>
