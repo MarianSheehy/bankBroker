@@ -17,4 +17,6 @@ export const apiRoutes = [
   { method: "POST", path: "/api/plaid/exchange-token", config: plaidApi.exchangeToken },
   { method: "POST", path: "/api/plaid/accounts", config: plaidApi.getAccounts },
   { method: "POST", path: "/api/plaid/transactions", config: plaidApi.getTransactions },
+  { method: "POST", path: "/api/plaid/transactions/sync", config: plaidApi.syncTransactions },
+  { method: "GET", path: "/api/plaid/transactions/local", config: plaidApi.getLocalTransactions },
 ];

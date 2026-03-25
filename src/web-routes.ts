@@ -3,7 +3,6 @@ import { dashboardController } from "./controllers/dashboard-controller.js";
 import { aboutController } from "./controllers/about-controller.js";
 import { bankController } from "./controllers/bank-controller.js";
 import { reportsController } from "./controllers/reports-controller.js";
-import { plaidController } from "./controllers/plaid-controller.js";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -20,8 +19,6 @@ export const webRoutes = [
 
   { method: "GET", path: "/bank/{id}/editbank/{bankid}", config: bankController.index },
   // { method: "POST", path: "/bank/{id}/updatebank/{bankid}", config: bankController.update },
-
-  { method: "GET", path: "/plaid", config: plaidController.index },
   
   { method: "GET", path: "/selection", config: reportsController.index },
   { method: "POST", path: "/reports", config: reportsController.selection },

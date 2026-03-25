@@ -3,4 +3,60 @@
 <section class="section">
   {{> report-list}}
   {{> report-form}}
+
+  <hr />
+
+  <h2 class="title is-4">Bank connections</h2>
+  <p class="mb-3">Link your bank account using Plaid:</p>
+  <button id="link-button" class="button is-primary">Link bank account</button>
 </section>
+
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script>
+  (async function () {
+    async function fetchLinkToken() {
+      const res = await fetch("/api/plaid/create-link-token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!res.ok) {
+        console.error("Failed to create link token");
+        return null;
+      }
+      const data = await res.json();
+      return data.link_token;
+    }
+
+    const linkToken = await fetchLinkToken();
+    if (!linkToken) return;
+
+    const handler = Plaid.create({
+      token: linkToken,
+      onSuccess: async function (public_token, metadata) {
+        try {
+          const res = await fetch("/api/plaid/exchange-token", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ public_token, metadata }),
+          });
+          const data = await res.json();
+          console.log("Plaid linked, item_id:", data.item_id);
+          // e.g. window.location.reload();
+        } catch (err) {
+          console.error("Error exchanging public_token:", err);
+        }
+      },
+      onExit: function (err, metadata) {
+        if (err) {
+          console.error("Plaid Link exit error:", err, metadata);
+        }
+      },
+    });
+
+    document
+      .getElementById("link-button")
+      ?.addEventListener("click", function () {
+        handler.open();
+      });
+  })();
+</script>
