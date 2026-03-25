@@ -143,11 +143,12 @@ export const plaidApi = {
 
   /** Step 5 — sync transactions using /transactions/sync. */
   syncTransactions: {
-    auth: false, // keep unauthenticated for now while testing
+    // auth: false, 
     handler: async function (request: Request, h: ResponseToolkit) {
       try {
-        // TEMP: hardcode your userId since auth is disabled
-        const userId = "69c3258942fda2e8447a39b8"; // from your plaiditems doc
+        // const userId = "69c3258942fda2e8447a39b8"; 
+        const user = request.auth.credentials as any;
+        const userId = user._id.toString();
         const { itemId } = request.payload as { itemId: string };
 
         const item = await findPlaidItemByUserAndItem(userId, itemId);

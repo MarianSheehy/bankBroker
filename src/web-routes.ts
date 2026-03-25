@@ -3,6 +3,8 @@ import { dashboardController } from "./controllers/dashboard-controller.js";
 import { aboutController } from "./controllers/about-controller.js";
 import { bankController } from "./controllers/bank-controller.js";
 import { reportsController } from "./controllers/reports-controller.js";
+import { plaidItemsController } from "./controllers/plaid-items-controller.js";
+import { transactionsController } from "./controllers/transactions-controller.js";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -18,11 +20,12 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard/deletebank/{id}", config: dashboardController.deleteBank },
 
   { method: "GET", path: "/bank/{id}/editbank/{bankid}", config: bankController.index },
-  // { method: "POST", path: "/bank/{id}/updatebank/{bankid}", config: bankController.update },
   
   { method: "GET", path: "/selection", config: reportsController.index },
   { method: "POST", path: "/reports", config: reportsController.selection },
   { method: "GET", path: "/reports", config: reportsController.report },
+  { method: "GET", path: "/banks", config: plaidItemsController.index },
+  { method: "GET", path: "/transactions", config: transactionsController.index },
 
   {
     method: "GET",

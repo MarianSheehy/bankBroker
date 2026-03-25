@@ -1,0 +1,33 @@
+{{> menu active=active}}
+
+<section class="section">
+  <h1 class="title">Linked bank items</h1>
+
+  {{#if items.length}}
+    <table class="table is-fullwidth is-striped">
+      <thead>
+        <tr>
+          <th>Item ID</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each items}}
+          <tr>
+            <td>{{this.itemId}}</td>
+            <td>{{this.createdAt}}</td>
+            <td>
+              <a class="button is-small"
+                 href="/transactions?itemId={{this.itemId}}">
+                View transactions
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p>No bank items linked yet.</p>
+  {{/if}}
+</section>

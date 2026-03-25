@@ -41,14 +41,18 @@
           });
           const data = await res.json();
           console.log("Plaid linked, item_id:", data.item_id);
-          // e.g. window.location.reload();
+
+          // NEW: trigger a sync for this item
+          await fetch("/api/plaid/transactions/sync", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ itemId: data.item_id }),
+          });
+
+          // Optional: redirect to transactions page
+          // window.location.href = "/transactions";
         } catch (err) {
           console.error("Error exchanging public_token:", err);
-        }
-      },
-      onExit: function (err, metadata) {
-        if (err) {
-          console.error("Plaid Link exit error:", err, metadata);
         }
       },
     });

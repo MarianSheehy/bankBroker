@@ -12,9 +12,18 @@ const seedLib = mongooseSeeder.default;
 
 async function seed(): Promise<void> {
   const seeder = seedLib(Mongoose);
+
+  // Only seed (and drop collections) in development, never in production
+  const isProd = process.env.NODE_ENV === "production";
+
+  if (isProd) {
+    console.log("Skipping seeding in production");
+    return;
+  }
+
   const dbData = await seeder.seed(seedData, {
     dropDatabase: false,
-    dropCollections: true,
+    dropCollections: false, // <— changed from true
   });
   console.log("Database seeded:", Object.keys(dbData));
 }
