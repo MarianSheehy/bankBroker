@@ -1,10 +1,30 @@
-{{> welcome-menu}}
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    {{> bankbroker-brand}}
+  </div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button" id="login" href="/login">Log in</a>
+          <a class="button" id="signup" href="/signup">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<img src="/images/bank-broker.png" alt="Logo image" style="width: 100%; height: 100%; display: block;">
+
+<script>
+  document.getElementById("{{active}}")?.classList.add("is-success");
+</script>
 
 <div class="columns is-vcentered">
   <div class="column has-text-centered">
-    <p>Thanks for visiting our app. We help you document and manage your bank brokering activities.</p>
-  </div>
-  <div class="column">
-    <img src="/images/puffin.jpg" alt="Welcome image">
+    <p class="is-size-5 has-text-weight-heavy is-family-secondary">
+      Thanks for visiting our app. We will help you document and manage your banking transactions.
+    </p>
   </div>
 </div>
+

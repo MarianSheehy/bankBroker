@@ -23,13 +23,13 @@ export const seedData = {
   banks: {
     _model: "Bank",
     one: {
-      bankName: "Bank of Ireland",
+      institutionName: "Bank of Ireland",
     },
     two: {
-      bankName: "AIB",
+      institutionName: "AIB",
     },
     three: {
-      bankName: "PTSB",
+      institutionName: "PTSB",
     },
   },
   reports: {

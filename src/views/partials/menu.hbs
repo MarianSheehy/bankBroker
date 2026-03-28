@@ -1,7 +1,4 @@
 <nav class="navbar">
-  <div class="navbar-brand">
-    {{> bankbroker-brand}}
-  </div>
   <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
@@ -12,10 +9,10 @@
       <div class="navbar-item">
         <div class="buttons">
           <a id="dashboard" class="button" href="/dashboard">Link Banks</a>
-          <a id="reports" class="button" href="/reports">Reports</a>
           <a id="banks" class="button" href="/banks">My Banks</a>
-          <a id="transactions" class="button" href="/transactions">My Transactions</a>
-          <a id="about" class="button" href="/about">About</a>
+          <a id="transactions" class="button" href="/transactions">All Transactions</a>
+          <a id="reports" class="button" href="/reports">Reports</a>
+          <a id="account" class="button" href="/about">My Account</a>
           <a id="logout" class="button" href="/logout">Logout</a>
         </div>
       </div>
@@ -23,8 +20,11 @@
   </div>
 </nav>
 
+<img src="/images/bank-broker.png" alt="Logo image" class="logo-topleft" style="width: 20%; height: 20%;">
+
+
 <script>
-  document.getElementById("{{active}}")?.classList.add("is-primary");
+  document.getElementById("{{active}}")?.classList.add("is-success");
 
   document.addEventListener("DOMContentLoaded", () => {
     const navbarBurgers = Array.prototype.slice.call(

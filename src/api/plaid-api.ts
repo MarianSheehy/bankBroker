@@ -56,6 +56,12 @@ export const plaidApi = {
         const accessToken = response.data.access_token;
         const itemId = response.data.item_id;
 
+        // ---- NEW: fetch institution/bank name ----
+        const accountsRes = await plaidClient.accountsGet({ access_token: accessToken });
+        const itemInfo = accountsRes.data.item;
+        const institutionName = itemInfo.institution_name || "Unknown bank";
+        // -----------------------------------------
+
         // Demo: still keep latest token in memory for /accounts + /transactions.
         ACCESS_TOKEN = accessToken;
         ITEM_ID = itemId;
@@ -65,9 +71,10 @@ export const plaidApi = {
           itemId,
           accessToken,
           cursor: null,
+          institutionName,   // <-- pass it through
         });
 
-        console.log("Plaid item linked and stored:", itemId);
+        console.log("Plaid item linked and stored:", itemId, institutionName);
 
         return h.response({ success: true, item_id: itemId }).code(200);
       } catch (err: any) {

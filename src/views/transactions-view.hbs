@@ -7,6 +7,7 @@
     <table class="table is-striped is-fullwidth">
       <thead>
         <tr>
+          <th>Bank Name</th>
           <th>Date</th>
           <th>Name</th>
           <th>Amount</th>
@@ -17,6 +18,7 @@
       <tbody>
         {{#each transactions}}
           <tr>
+            <td>{{this.institutionName}}</td>
             <td>{{this.date}}</td>
             <td>{{this.name}}</td>
             <td>{{this.amount}}</td>

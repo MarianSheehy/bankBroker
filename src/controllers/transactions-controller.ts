@@ -1,6 +1,7 @@
 import type { Request, ResponseToolkit } from "@hapi/hapi";
 import Boom from "@hapi/boom";
 import { PlaidTransaction } from "../models/mongo/plaid-transaction-store.js";
+import { PlaidItem } from "../models/mongo/plaid-item-store.js";
 
 export const transactionsController = {
   index: {
@@ -18,10 +19,32 @@ export const transactionsController = {
           .lean()
           .exec();
 
+        // Build institutionName per itemId
+        const itemIds = [...new Set(txns.map((t) => t.itemId))];
+        const items = await PlaidItem.find({
+          userId,
+          itemId: { $in: itemIds },
+        })
+          .lean()
+          .exec();
+
+        const itemNameById: Record<string, string> = {};
+        for (const item of items) {
+          if (item.itemId) {
+            itemNameById[item.itemId] =
+              item.institutionName || "Unknown bank";
+          }
+        }
+
+        const viewTxns = txns.map((t) => ({
+          ...t,
+          institutionName: itemNameById[t.itemId] || "Unknown bank",
+        }));
+
         return h.view("transactions-view", {
           title: "Transactions",
           active: "transactions",
-          transactions: txns,
+          transactions: viewTxns,
           itemId: itemId || "",
         });
       } catch (err: any) {

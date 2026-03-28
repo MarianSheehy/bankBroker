@@ -12,9 +12,11 @@ import { webRoutes } from "./web-routes.js";
 import { apiRoutes } from "./api-routes.js";
 import { connectDb } from "./models/db.js";
 import { validate } from "./api/jwt-utils.js";
+import { loadPlaidCategories } from "./config/plaid-categories.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const PLAID_CATEGORIES = loadPlaidCategories();
 
 function loadEnvironment(): void {
   const result = dotenv.config();
@@ -38,6 +40,10 @@ async function registerPlugins(server: Hapi.Server) {
     partialsPath: "./views/partials",
     layout: true,
     isCached: false,
+  });
+
+  Handlebars.registerHelper("ifEquals", function (a, b, options) {
+    return a === b ? options.fn(this) : options.inverse(this);
   });
 }
 
@@ -66,7 +72,25 @@ async function init(): Promise<void> {
 
   const server = Hapi.server({
     port: process.env.PORT || 4000,
-    routes: { cors: true },
+    routes: {
+      cors: true,
+      files: {
+        relativeTo: path.join(__dirname, "../public"),
+      },
+    },
+  });
+
+  await server.register(Inert);
+
+  server.route({
+    method: "GET",
+    path: "/images/{param*}",
+    handler: {
+      directory: {
+        path: "images",
+        index: false,
+      },
+    },
   });
 
   await registerPlugins(server);

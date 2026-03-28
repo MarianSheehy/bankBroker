@@ -8,7 +8,7 @@
   <div class="box">
     <h2 class="title is-5">Step 1 — Connect</h2>
     <p class="mb-4">Click the button below to securely link your bank account via Plaid.</p>
-    <button id="link-btn" class="button is-primary is-medium" disabled>
+    <button id="link-btn" class="button is-success is-medium" disabled>
       <span class="icon"><i class="fas fa-university"></i></span>
       <span>Connect Bank Account</span>
     </button>
@@ -69,7 +69,7 @@
 
       const handler = Plaid.create({
         token: data.link_token,
-        onSuccess: async function (publicToken, metadata) {
+        onsuccess: async function (publicToken, metadata) {
           linkStatus.textContent = "Exchanging token...";
           const exchangeRes = await fetch("/api/plaid/exchange-token", {
             method: "POST",

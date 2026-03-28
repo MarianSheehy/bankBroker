@@ -1,4 +1,3 @@
-// src/models/mongo/plaid-transaction-store.ts
 import mongoose from "mongoose";
 
 export interface PlaidTransactionRecord {
@@ -15,6 +14,7 @@ export interface PlaidTransactionRecord {
   raw: any;
   createdAt: Date;
   updatedAt: Date;
+  userCategory?: string | null;
 }
 
 const plaidTransactionSchema = new mongoose.Schema<PlaidTransactionRecord>(
@@ -30,6 +30,7 @@ const plaidTransactionSchema = new mongoose.Schema<PlaidTransactionRecord>(
     merchantName: { type: String, default: null },
     pending: { type: Boolean, required: true },
     raw: { type: mongoose.Schema.Types.Mixed, required: true },
+    userCategory: { type: String, default: null },
   },
   { timestamps: true } // createdAt, updatedAt [web:159][web:168]
 );

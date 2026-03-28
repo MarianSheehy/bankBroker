@@ -1,11 +1,11 @@
-// src/models/mongo/plaid-item-store.ts
 import mongoose from "mongoose";
 
 export interface PlaidItemRecord {
   userId: string;
   itemId: string;
   accessToken: string;
-  cursor: string | null;
+  institutionId?: string | null;
+  institutionName?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,11 +13,12 @@ export interface PlaidItemRecord {
 const plaidItemSchema = new mongoose.Schema<PlaidItemRecord>(
   {
     userId: { type: String, required: true },
-    itemId: { type: String, required: true },
+    itemId: { type: String, required: true, unique: true },
     accessToken: { type: String, required: true },
-    cursor: { type: String, default: null },
+    institutionId: { type: String, default: null },
+    institutionName: { type: String, default: null },
   },
-  { timestamps: true } // createdAt, updatedAt
+  { timestamps: true }
 );
 
 plaidItemSchema.index({ userId: 1, itemId: 1 }, { unique: true });
@@ -30,13 +31,14 @@ export async function upsertPlaidItem(params: {
   userId: string;
   itemId: string;
   accessToken: string;
-  cursor?: string | null;
+  cursor: string | null;
+  institutionName?: string;
 }): Promise<PlaidItemRecord> {
-  const { userId, itemId, accessToken, cursor = null } = params;
+  const { userId, itemId, accessToken, cursor = null, institutionName } = params;
 
   const doc = await PlaidItem.findOneAndUpdate(
     { userId, itemId },
-    { userId, itemId, accessToken, cursor },
+    { userId, itemId, accessToken, cursor, institutionName },
     { returnDocument: "after", upsert: true }
   ).lean<PlaidItemRecord>();
 
@@ -61,7 +63,16 @@ export async function updatePlaidItemCursor(
   cursor: string
 ): Promise<void> {
   await PlaidItem.updateOne(
-    { userId, itemId },
-    { $set: { cursor } }
-  ).exec();
+    { userId, itemId }, // from Plaid /item/public_token/exchange response
+    {
+      $set: {
+        userId,
+        itemId,
+        accessToken,
+        institutionId: metadata?.institution?.institution_id || null,
+        institutionName: metadata?.institution?.name || null,
+      },
+    },
+    { upsert: true }
+  );
 }

@@ -1,14 +1,8 @@
 {{> menu active="dashboard"}}
 
 <section class="section">
-  {{> report-list}}
-  {{> report-form}}
-
-  <hr />
-
   <h2 class="title is-4">Bank connections</h2>
-  <p class="mb-3">Link your bank account using Plaid:</p>
-  <button id="link-button" class="button is-primary">Link bank account</button>
+  <button id="link-button" class="button is-success">Link bank account</button>
 </section>
 
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
@@ -31,31 +25,33 @@
     if (!linkToken) return;
 
     const handler = Plaid.create({
-      token: linkToken,
-      onSuccess: async function (public_token, metadata) {
-        try {
-          const res = await fetch("/api/plaid/exchange-token", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ public_token, metadata }),
-          });
-          const data = await res.json();
-          console.log("Plaid linked, item_id:", data.item_id);
+  token: linkToken,
+  onSuccess: async function (public_token, metadata) {
+    try {
+      const res = await fetch("/api/plaid/exchange-token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ public_token, metadata }),
+      });
+      const data = await res.json();
+      console.log("Plaid linked, item_id:", data.item_id);
 
-          // NEW: trigger a sync for this item
-          await fetch("/api/plaid/transactions/sync", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ itemId: data.item_id }),
-          });
-
-          // Optional: redirect to transactions page
-          // window.location.href = "/transactions";
-        } catch (err) {
-          console.error("Error exchanging public_token:", err);
-        }
-      },
-    });
+      await fetch("/api/plaid/transactions/sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itemId: data.item_id }),
+      });
+    } catch (err) {
+      console.error("Error exchanging public_token:", err);
+    }
+  },
+  onExit: function (err, metadata) {
+    console.log("Link exited", err, metadata);
+  },
+  onEvent: function (eventName, metadata) {
+    console.log("Link event", eventName, metadata);
+  },
+});
 
     document
       .getElementById("link-button")
