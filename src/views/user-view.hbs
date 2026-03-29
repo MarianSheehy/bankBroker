@@ -1,0 +1,61 @@
+{{> menu active=active}}
+
+<section class="section">
+  <h1 class="title">User settings</h1>
+
+  <div class="box">
+    <p><strong>Name:</strong> {{user.firstName}} {{user.lastName}}</p>
+    <p><strong>Email:</strong> {{user.email}}</p>
+  </div>
+
+  {{#if error}}
+  <div class="notification is-danger">{{error}}</div>
+  {{/if}}
+
+  {{#if success}}
+  <div class="notification is-success">{{success}}</div>
+  {{/if}}
+
+  <div class="box">
+    <h2 class="subtitle">Change password</h2>
+
+    <form method="post" action="/user/password">
+      <div class="field">
+        <label class="label">Current password</label>
+        <div class="control">
+          <input class="input" type="password" name="currentPassword" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">New password</label>
+        <div class="control">
+          <input class="input" type="password" name="newPassword" required>
+        </div>
+        <p class="help">
+          New password must:
+          <br>- Be at least 8 characters
+          <br>- Contain at least one letter
+          <br>- Contain at least one number
+          <br>- Be different from your current password
+        </p>
+      </div>
+
+      <div class="field">
+        <label class="label">Confirm new password</label>
+        <div class="control">
+          <input class="input" type="password" name="confirmPassword" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <button class="button has-background-success-dark has-text-white" type="submit">
+            Update password
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</section>

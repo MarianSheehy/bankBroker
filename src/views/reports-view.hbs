@@ -30,10 +30,9 @@
               <select name="category">
                 <option value="all">All categories</option>
                 {{#each categories}}
-                <option value="{{this.id}}" {{#ifEquals ../filters.category this.id}}selected{{/ifEquals}}>
-                  {{this.primary}} – {{this.label}}
-                </option>
-                {{/each}}
+                <option value="{{this.detailed}}" {{#ifEquals ../filters.category this.detailed}}selected{{/ifEquals}}>
+                  {{this.primary}} – {{this.detailed}}
+                  {{/each}}
               </select>
             </div>
           </div>
@@ -72,16 +71,20 @@
 
     <div class="field is-grouped">
       <div class="control">
-        <button class="button is-link" type="submit">Apply filters</button>
+        <button class="button is-link has-background-grey-light has-text-black" type="submit">Apply filters</button>
       </div>
       <div class="control">
         <a class="button is-light" href="/reports">Clear</a>
       </div>
+      <a class="button is-link has-background-warning has-text-black"
+        href="/reports/export.csv?itemId={{filters.itemId}}&category={{filters.category}}&startDate={{filters.startDate}}&endDate={{filters.endDate}}&minAmount={{filters.minAmount}}&maxAmount={{filters.maxAmount}}">
+        Export to CSV
+      </a>
     </div>
   </form>
 
   <div class="content">
-    <p><strong>Total amount:</strong> {{total}}</p>
+    <p><strong>Total amount:</strong> {{toFixed2 total}}</p>
   </div>
 
   {{#if transactions.length}}
@@ -107,19 +110,13 @@
         </td>
 
         <td>
-          <form method="post" action="/reports/category" class="category-form">
-            <input type="hidden" name="transactionId" value="{{this._id}}">
-            <div class="select is-small is-fullwidth">
-              <select name="category" class="category-select">
-                <option value="">Uncategorised</option>
-                {{#each ../categories}}
-                <option value="{{this.id}}" {{#ifEquals ../userCategory this.id}}selected{{/ifEquals}}>
-                  {{this.primary}} – {{this.label}}
-                </option>
-                {{/each}}
-              </select>
-            </div>
-          </form>
+          {{#if this.personalFinanceCategory}}
+          <img src="{{this.personalFinanceCategoryIconUrl}}" alt="{{this.personalFinanceCategory.detailed}}"
+            style="width:16px;height:16px;vertical-align:middle;margin-right:4px;">
+          {{this.personalFinanceCategory.detailed}}
+          {{else}}
+          Uncategorised
+          {{/if}}
         </td>
 
         <td class="has-text-right">{{this.amount}}</td>

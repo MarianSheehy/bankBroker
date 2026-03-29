@@ -6,15 +6,17 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button" id="login" href="/login">Log in</a>
-          <a class="button" id="signup" href="/signup">Sign up</a>
+          <a class="button has-background-success-dark has-text-white" id="login" href="/login">Log in</a>
+          <a class="button has-background-success-dark has-text-white" id="signup" href="/signup">Sign up</a>
         </div>
       </div>
     </div>
   </div>
 </nav>
 
-<img src="/images/bank-broker.png" alt="Logo image" style="width: 100%; height: 100%; display: block;">
+<div class="has-text-centered" style="margin-top: 1.5rem;">
+  <img src="/images/bank-broker.png" alt="Logo image" style="width: 30%; height: auto;">
+</div>
 
 <script>
   document.getElementById("{{active}}")?.classList.add("is-success");
@@ -22,9 +24,8 @@
 
 <div class="columns is-vcentered">
   <div class="column has-text-centered">
-    <p class="is-size-5 has-text-weight-heavy is-family-secondary">
+    <p class="is-size-4 has-text-weight-heavy is-family-secondary">
       Thanks for visiting our app. We will help you document and manage your banking transactions.
     </p>
   </div>
 </div>
-

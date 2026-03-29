@@ -15,6 +15,13 @@ export interface PlaidTransactionRecord {
   createdAt: Date;
   updatedAt: Date;
   userCategory?: string | null;
+  personalFinanceCategory?: {
+    primary?: string;
+    detailed?: string;
+    confidence_level?: string;
+    version?: string;
+  } | null;
+  personalFinanceCategoryIconUrl?: string | null;
 }
 
 const plaidTransactionSchema = new mongoose.Schema<PlaidTransactionRecord>(
@@ -31,8 +38,19 @@ const plaidTransactionSchema = new mongoose.Schema<PlaidTransactionRecord>(
     pending: { type: Boolean, required: true },
     raw: { type: mongoose.Schema.Types.Mixed, required: true },
     userCategory: { type: String, default: null },
+
+    personalFinanceCategory: {
+      type: {
+        primary: String,
+        detailed: String,
+        confidence_level: String,
+        version: String,
+      },
+      default: null,
+    },
+    personalFinanceCategoryIconUrl: { type: String, default: null },
   },
-  { timestamps: true } // createdAt, updatedAt [web:159][web:168]
+  { timestamps: true }
 );
 
 // Unique per user/item/transaction
@@ -74,6 +92,8 @@ export async function upsertPlaidTransactions(
           pending: t.pending,
           raw: t,
           updatedAt: now,
+          personalFinanceCategory: t.personal_finance_category ?? null,
+          personalFinanceCategoryIconUrl: t.personal_finance_category_icon_url ?? null,
         },
         $setOnInsert: { createdAt: now },
       },

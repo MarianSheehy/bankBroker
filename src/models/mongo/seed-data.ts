@@ -7,18 +7,6 @@ export const seedData = {
       email: "homer@simpson.com",
       password: "secret",
     },
-    marge: {
-      firstName: "Marge",
-      lastName: "Simpson",
-      email: "marge@simpson.com",
-      password: "secret",
-    },
-    bart: {
-      firstName: "Bart",
-      lastName: "Simpson",
-      email: "bart@simpson.com",
-      password: "secret",
-    },
   },
   banks: {
     _model: "Bank",

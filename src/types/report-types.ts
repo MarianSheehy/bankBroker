@@ -33,6 +33,7 @@ export interface UserStore {
   findBy(email: string): Promise<User | null>;
   deleteOne(id: string): Promise<void>;
   delete(): Promise<void>;
+  updatePassword(id: string, password: string): Promise<void>;
 }
 
 export interface BankStore {

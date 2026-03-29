@@ -35,4 +35,11 @@ export const userStore: UserStore = {
   async delete(): Promise<void> {
     await UserMongoose.deleteMany({});
   },
+
+  async updatePassword(id: string, password: string): Promise<void> {
+  await UserMongoose.updateOne(
+    { _id: id },
+    { $set: { password } }
+  ).exec();
+},
 };

@@ -63,16 +63,12 @@ export async function updatePlaidItemCursor(
   cursor: string
 ): Promise<void> {
   await PlaidItem.updateOne(
-    { userId, itemId }, // from Plaid /item/public_token/exchange response
+    { userId, itemId },
     {
       $set: {
-        userId,
-        itemId,
-        accessToken,
-        institutionId: metadata?.institution?.institution_id || null,
-        institutionName: metadata?.institution?.name || null,
+        cursor,           // save the new transactions cursor
+        updatedAt: new Date(),
       },
-    },
-    { upsert: true }
-  );
+    }
+  ).exec();
 }

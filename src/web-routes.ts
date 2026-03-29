@@ -1,11 +1,12 @@
-import { accountsController } from "./controllers/accounts-controller.js";
-import { dashboardController } from "./controllers/dashboard-controller.js";
-import { aboutController } from "./controllers/about-controller.js";
-import { bankController } from "./controllers/bank-controller.js";
-import { reportsController } from "./controllers/reports-controller.js";
-import { reportsCategoryController } from "./controllers/reports-category-controller.js";
-import { plaidItemsController } from "./controllers/plaid-items-controller.js";
-import { transactionsController } from "./controllers/transactions-controller.js";
+import { accountsController } from "./controllers/accounts-controller";
+import { userController } from "./controllers/user-controller";
+import { dashboardController } from "./controllers/dashboard-controller";
+import { aboutController } from "./controllers/about-controller";
+import { bankController } from "./controllers/bank-controller";
+import { reportsController } from "./controllers/reports-controller";
+// import { reportsCategoryController } from "./controllers/reports-category-controller";
+import { plaidItemsController } from "./controllers/plaid-items-controller";
+import { transactionsController } from "./controllers/transactions-controller";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -14,6 +15,9 @@ export const webRoutes = [
   { method: "POST", path: "/register", config: accountsController.signup },
   { method: "POST", path: "/authenticate", config: accountsController.login },
   { method: "GET", path: "/logout", config: accountsController.logout },
+
+  { method: "GET", path: "/user", config: userController.index },
+  { method: "POST", path: "/user/password", config: userController.changePassword },
 
   { method: "GET", path: "/about", config: aboutController.index },
   { method: "GET", path: "/dashboard", config: dashboardController.index },
@@ -24,7 +28,7 @@ export const webRoutes = [
   
   { method: "GET", path: "/selection", config: reportsController.index },
   { method: "GET", path: "/reports", config: reportsController.index },
-  { method: "POST", path: "/reports/category", config: reportsCategoryController.updateCategory },
+  // { method: "POST", path: "/reports/category", config: reportsCategoryController.updateCategory },
   { method: "GET", path: "/banks", config: plaidItemsController.index },
   { method: "GET", path: "/transactions", config: transactionsController.index },
 

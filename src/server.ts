@@ -8,15 +8,16 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import { accountsController } from "./controllers/accounts-controller.js";
+import { exportReportsCsv } from "./controllers/reports-controller.js";
 import { webRoutes } from "./web-routes.js";
 import { apiRoutes } from "./api-routes.js";
 import { connectDb } from "./models/db.js";
 import { validate } from "./api/jwt-utils.js";
-import { loadPlaidCategories } from "./config/plaid-categories.js";
+// import { loadPlaidCategories } from "./config/plaid-categories.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const PLAID_CATEGORIES = loadPlaidCategories();
 
 function loadEnvironment(): void {
   const result = dotenv.config();
@@ -44,6 +45,12 @@ async function registerPlugins(server: Hapi.Server) {
 
   Handlebars.registerHelper("ifEquals", function (a, b, options) {
     return a === b ? options.fn(this) : options.inverse(this);
+  });
+
+  Handlebars.registerHelper("toFixed2", function (value) {
+    const num = Number(value);
+    if (Number.isNaN(num)) return value;
+    return num.toFixed(2);
   });
 }
 
@@ -85,18 +92,32 @@ async function init(): Promise<void> {
   server.route({
     method: "GET",
     path: "/images/{param*}",
-    handler: {
-      directory: {
-        path: "images",
-        index: false,
+    options: {
+      auth: false,
+      handler: {
+        directory: {
+          path: "images",
+          index: false,
+        },
       },
     },
   });
 
   await registerPlugins(server);
-  configureAuth(server);
+  configureAuth(server);          // <-- define "cookie" here
+
   connectDb("mongo");
   server.route(webRoutes);
+
+  server.route({
+    method: "GET",
+    path: "/reports/export.csv",
+    handler: exportReportsCsv,
+    options: {
+      auth: "cookie",             // now valid
+    },
+  });
+
   server.route(apiRoutes);
 
   await server.start();
