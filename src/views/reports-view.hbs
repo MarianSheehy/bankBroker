@@ -1,7 +1,24 @@
 {{> menu active=active}}
 
 <section class="section">
-  <h1 class="title">Reports</h1>
+  <div class="has-text-centered">
+    <h1 class="title is-2 has-text-weight-bold">
+      Reports 
+    </h1>
+
+    <p class="mb-4">
+      <span
+        class="is-inline-block"
+        style="width: 96px; height: 4px; background-color: #ffdd57; border-radius: 999px;"
+      ></span>
+    </p>
+
+    <h2 class="subtitle is-5 has-text-grey-dark">
+      Transactions are automatically categorised for more efficient analysis
+      <br>
+      <br>
+    </h2>
+  </div>
 
   <form method="get" action="/reports" class="box mb-5">
     <div class="field is-horizontal">
@@ -83,7 +100,7 @@
     </div>
   </form>
 
-  <div class="content">
+  <div class="notification is-success is-light">
     <p><strong>Total amount:</strong> {{toFixed2 total}}</p>
   </div>
 

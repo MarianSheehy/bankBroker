@@ -1,7 +1,24 @@
 {{> menu active=active}}
 
 <section class="section">
-  <h1 class="title">Transactions</h1>
+  <div class="has-text-centered">
+    <h1 class="title is-2 has-text-weight-bold">
+      Transactions
+    </h1>
+
+    <p class="mb-4">
+      <span
+        class="is-inline-block"
+        style="width: 96px; height: 4px; background-color: #ffdd57; border-radius: 999px;"
+      ></span>
+    </p>
+
+    <h2 class="subtitle is-5 has-text-grey-dark">
+      All transactions synced to date. Head to Reports to filter and export
+      <br>
+      <br>
+    </h2>
+  </div>
 
   {{#if transactions.length}}
     <table class="table is-striped is-fullwidth">

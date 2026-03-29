@@ -59,21 +59,35 @@ export const accountsController = {
   login: {
     auth: false,
     handler: async function (request: Request, h: ResponseToolkit) {
-      const { email, password } = request.payload as { email: string; password: string };
+      const { email, password } = request.payload as {
+        email: string;
+        password: string
+      };
+
       const user = await db.userStore.findBy(email);
+
       if (!user || !user.password) {
-        return h.redirect("/");
+        return h.view("login", {
+          title: "Login to BankBroker",
+          error: "Incorrect email or password",
+          email,
+        });
       }
 
       const ok = await bcrypt.compare(password, user.password);
       if (!ok) {
-        return h.redirect("/");
+        return h.view("login", {
+          title: "Login to BankBroker",
+          error: "Incorrect email or password",
+          email,
+        });
       }
 
       (request as any).cookieAuth.set({ id: user._id });
       return h.redirect("/dashboard");
     },
   },
+
   logout: {
     handler: async function (request: Request, h: ResponseToolkit) {
       (request as any).cookieAuth.clear();

@@ -1,4 +1,12 @@
 <form action="/authenticate" method="POST">
+
+  {{#if error}}
+  <div class="notification is-danger">
+    {{error}}
+  </div>
+  {{/if}}
+
   {{> user-credentials }}
+
   <button class="button is-success is-fullwidth">Log In</button>
 </form>
