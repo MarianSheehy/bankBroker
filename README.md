@@ -1,3 +1,5 @@
+Landing Page - https://mariansheehy.github.io/bankBroker/
+
 # BankBroker
 
 A Hapi.js and TypeScript application that connects to Plaid to aggregate bank accounts and transactions, stores data in MongoDB, and provides web-based reporting and CSV export
