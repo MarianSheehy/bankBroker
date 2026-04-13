@@ -14,8 +14,8 @@
     }
 
     header {
-      background-color: #A6A6A6;
-      color: black;
+      background-color: #0c4e54;
+      color: white;
       text-align: center;
       padding: 30px 20px;
     }
@@ -29,26 +29,49 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    h1, h2 {
-      margin-top: 0;
+    .about-box {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .profile-image {
+      width: 220px;
+      border-radius: 8px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .button-group a {
+      display: inline-block;
+      background-color: #0c4e54;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .button-group a:hover {
+      background-color: #08383c;
     }
 
     img {
       max-width: 100%;
       height: auto;
       display: block;
-      margin: 15px auto;
-      border-radius: 8px;
-    }
-
-    .profile-image {
-      max-width: 220px;
     }
 
     footer {
       text-align: center;
       padding: 20px;
-      background-color: #A6A6A6;
+      background-color: #0c4e54;
       color: white;
       margin-top: 30px;
     }
@@ -62,8 +85,21 @@
   </header>
 
   <section id="about">
-    <h2>Marian Sheehy</h2>
-    <img class="profile-image" src="https://github.com/user-attachments/assets/9d037bdc-ee3f-4140-9fea-b2aefa4e9535" alt="Marian Sheehy profile image" width="271" height="482">
+    <h2>About Marian Sheehy</h2>
+    <div class="about-box">
+      <img class="profile-image"
+           src="https://github.com/user-attachments/assets/9d037bdc-ee3f-4140-9fea-b2aefa4e9535"
+           alt="Marian Sheehy profile image"
+           width="271"
+           height="482">
+
+      <div class="button-group">
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>
+        <a href="https://plaid.com/" target="_blank" rel="noopener noreferrer">Plaid</a>
+        <a href="https://www.mongodb.com/" target="_blank" rel="noopener noreferrer">MongoDB</a>
+      </div>
+    </div>
   </section>
 
   <section id="project">
@@ -81,7 +117,10 @@
 
   <section id="poster">
     <h2>Project Poster</h2>
-    <img src="https://github.com/user-attachments/assets/1a43d441-c86c-4938-b419-b5a506e3482f" alt="Bank Broker poster" width="600" height="800">
+    <img src="https://github.com/user-attachments/assets/1a43d441-c86c-4938-b419-b5a506e3482f"
+         alt="Bank Broker poster"
+         width="600"
+         height="800">
   </section>
 
   <footer>
